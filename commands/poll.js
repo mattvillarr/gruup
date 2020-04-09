@@ -8,7 +8,7 @@ module.exports = {
     const e = new Discord.MessageEmbed()
       .setColor(0xffc300)
       .setTitle('Initiate poll')
-      .setDescription('Use `g!poll` to initiate simple poll');
+      .setDescription('Use `gr poll` to initiate simple poll');
 
     if (!args[0]) {
       msg.channel.send(e);
