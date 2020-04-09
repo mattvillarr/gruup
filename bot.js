@@ -1,29 +1,34 @@
-const Discord = require("discord.js");
-const bot = new Discord.Client();
-const { token } = require("./config.json");
+const Discord = require('discord.js');
+const fs = require('fs');
+const { prefix, token } = require('./config.json');
 
-const PREFIX = "!";
+const bot = new Discord.Client();
+bot.commands = new Discord.Collection();
+const commandFiles = fs.readdirSync('./commands').filter((file) => file.endsWith('.js'));
+
+for (const f of commandFiles) {
+  const cmd = require(`./commands/${f}`);
+  bot.commands.set(cmd.name, cmd);
+}
 
 bot.on('ready', () => {
-  console.log("bot is gtg!");
+  console.log('gruup is gtg!');
 });
 
 bot.on('message', (msg) => {
-  let args = msg.content.substring(PREFIX.length).split(" ");
+  if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+  let args = msg.content.slice(prefix.length).split(/ +/);
+  const cmd = args.shift().toLowerCase();
 
-  switch (args[0]) {
-    case 'help':
-      msg.channel.send('SUH DUDE');
-      break;
+  console.log('cmd: ', cmd, '\nargs: ', args);
 
-    case 'about':
-      msg.channel.send('LINK TO COOL WEBSITE HERE');
-      break;
-      
-    case 'clear':
-        if(!args[1]) return msg.reply('ERROR! `clear` requires a second numerical parameter');
-        msg.channel.bulkDelete(args[1]);
-        break;
+  if (!bot.commands.has(cmd)) return;
+
+  try {
+    bot.commands.get(cmd).execute(msg, args);
+  } catch (error) {
+    console.error(error);
+    msg.reply('there was an error trying to execute that command!');
   }
 });
 
