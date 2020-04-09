@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 module.exports = {
   name: 'poll',
   description: 'lets users vote y/n, or on specific emotes',
+  cooldown: 10, // 10 second cooldown
   execute(msg, args) {
     const e = new Discord.MessageEmbed()
       .setColor(0xffc300)
