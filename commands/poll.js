@@ -15,9 +15,10 @@ module.exports = {
       msg.channel.send(e);
     }
 
-    // EVENTUAL LAYOUT of command: gr poll -n [# of options] -e [emojis] [option1 ... option n] poll-question
+    // EVENTUAL LAYOUT of command: gr poll -n [# of options] -e [emojis] [option1, ..., option n] poll-question
     // -e : emojis to use (# should match options)
     //TODO: function to parse rest of args
+    const parsedArgs = this.parseOptions(args); 
     const pollQ = args.slice().join(' ');
 
     const p = new Discord.MessageEmbed()
@@ -49,7 +50,7 @@ module.exports = {
         winner.count = r[1].count;
       }
     }
-    resEmbed.addField(`The winner is`, `${winner.icon}  !!`);
+    resEmbed.addField(`The winner is`, `${winner.icon}`);
     // console.info(res);
     // let resEmbed = new Discord.MessageEmbed()
     //   .setColor(0xffc300)
@@ -61,4 +62,9 @@ module.exports = {
 
     msg.channel.send(resEmbed);
   },
+
+  parseOptions(args) {
+    console.log(args.slice());
+
+  }
 };
