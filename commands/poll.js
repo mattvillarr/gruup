@@ -15,10 +15,11 @@ module.exports = {
       msg.channel.send(e);
     }
 
-    // EVENTUAL LAYOUT of command: gr poll -n [# of options] -e [emojis] [option1, ..., option n] poll-question
+    // EVENTUAL LAYOUT of command: 
+    // gr poll -t -n [# of options] -o [option1, ..., option n]  -e [emojis] [corresponding emojis] -q poll-question
     // -e : emojis to use (# should match options)
     //TODO: function to parse rest of args
-    const parsedArgs = this.parseOptions(args); 
+    const parsedArgs = this.parseOptions(args);
     const pollQ = args.slice().join(' ');
 
     const p = new Discord.MessageEmbed()
@@ -43,7 +44,6 @@ module.exports = {
     let winner = { icon: '😱 no one voted...', count: '0' };
 
     for (let r of res) {
-      
       if (r[1].count >= winner.count && r[1].count - 1 != 0) {
         resEmbed.addField(r[0], `Votes: ${r[1].count - 1}`);
         winner.icon = r[0];
@@ -65,6 +65,20 @@ module.exports = {
 
   parseOptions(args) {
     console.log(args.slice());
+    if (args.includes('-n')) {
 
-  }
+      console.log("I found -n!");
+      console.log(args.indexOf('-n'));
+    } 
+    if (args.includes('-o')) {
+
+      console.log("I found -o!");
+      console.log(args.indexOf('-o'));
+    } 
+    if (args.includes('-q')) {
+
+      console.log("I found -q!");
+      console.log(args.indexOf('-q'));
+    } 
+  },
 };

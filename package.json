@@ -4,12 +4,16 @@
   "description": "scheduler bot for discord",
   "main": "bot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon bot.js",
+    "dev": "nodemon bot.js"
   },
   "author": "Matthew Villarreal",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^12.1.1",
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
   }
 }
