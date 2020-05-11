@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const yargs = require('yargs');
 
 module.exports = {
   name: 'poll',
@@ -64,21 +65,30 @@ module.exports = {
   },
 
   parseOptions(args) {
-    console.log(args.slice());
-    if (args.includes('-n')) {
 
-      console.log("I found -n!");
-      console.log(args.indexOf('-n'));
-    } 
-    if (args.includes('-o')) {
+    const entireCommand = args.join(' ');
+    const parse = yargs.parse(entireCommand);
+    // const parse = require('yargs').parse(args) 
 
-      console.log("I found -o!");
-      console.log(args.indexOf('-o'));
-    } 
-    if (args.includes('-q')) {
 
-      console.log("I found -q!");
-      console.log(args.indexOf('-q'));
-    } 
+    console.log(`yargs: ${parse}`);
+    console.log('yarrrrgs:' + parse);
+
+    // console.log(args.slice());
+    // if (args.includes('-n')) {
+
+    //   console.log("I found -n!");
+    //   console.log(args.indexOf('-n'));
+    // } 
+    // if (args.includes('-o')) {
+
+    //   console.log("I found -o!");
+    //   console.log(args.indexOf('-o'));
+    // } 
+    // if (args.includes('-q')) {
+
+    //   console.log("I found -q!");
+    //   console.log(args.indexOf('-q'));
+    // } 
   },
 };
